@@ -31,7 +31,8 @@ fun ButtonListScreen(
         Column {
             states.forEachIndexed { index, state ->
                 val color = when (state) {
-                    2 -> Color.Green
+                    3 -> Color.Green
+                    2 -> Color.Yellow
                     1 -> Color.Yellow
                     else -> Color.Red
                 }

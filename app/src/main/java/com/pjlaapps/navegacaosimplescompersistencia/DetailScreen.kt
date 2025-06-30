@@ -36,8 +36,9 @@ fun DetailScreen(
     LaunchedEffect(true) {
         dataStoreManager.getButtonStates().collect { states ->
             when (states[index]) {
-                2 -> { clickedA = true; clickedB = true }
-                1 -> { clickedA = true; clickedB = false } // ou vice-versa
+                3 -> { clickedA = true; clickedB = true }
+                2 -> { clickedA = true; clickedB = false }
+                1 -> { clickedA = false; clickedB = true } // ou vice-versa
                 0 -> { clickedA = false; clickedB = false }
             }
         }
@@ -45,8 +46,9 @@ fun DetailScreen(
 
     fun updateState() {
         val newState = when {
-            clickedA && clickedB -> 2
-            clickedA || clickedB -> 1
+            clickedA==true && clickedB==true -> 3
+            clickedA==true && clickedB==false -> 2
+            clickedA==false && clickedB==true -> 1
             else -> 0
         }
         scope.launch { dataStoreManager.saveButtonState(index, newState) }
@@ -64,7 +66,7 @@ fun DetailScreen(
         Button(
             onClick = {
                 clickedA = !clickedA
-                updateState()
+               updateState()
             },
             modifier = Modifier
                 .fillMaxWidth()
